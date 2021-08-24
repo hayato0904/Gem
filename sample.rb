@@ -1,11 +1,12 @@
 require "slack-notify"
 require 'clockwork'
-# 下記のgemをrequireすると、minutesなどの時間を指し示すメソッドを使えるようになるので、記述しておくことを推奨します。
 require 'active_support/time'
+
 module Clockwork
-  # ここに、「どれくらいの周期で処理をするのか？」というClockworkのメソッドを記述します
-  every(10.minutes, 'kokoro') do
-    puts "kokoro"
+  handler do |job|
+    sample = SlackNotify::Client.new(webhook_url: "https://hooks.slack.com/services/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")
+    sample.notify ("hello")
   end
-  # ここに、slackで一定時間ごとに送りたい処理と設定を書き込みます
+  every(10.seconds, '10秒毎')
+  every(1.minutes, '1分毎')
 end
